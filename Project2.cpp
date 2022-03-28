@@ -3,6 +3,7 @@
 #include <cstring>
 using namespace std;
 
+//This is my struct
 struct Birds{
   enum {MAX_CHAR_ARRAY_SIZE = 100};
   char name[MAX_CHAR_ARRAY_SIZE];
@@ -13,10 +14,12 @@ struct Birds{
   Birds();
 };
 
+//this is my function declaration so my menu and functions know that each other exist
 int readBirdz(Birds bird[99]);
 void AddBird(Birds bird[99], int max);
 void removeBird(Birds bird[99], int Index, int max);
 void PrintBirdByChoice (Birds bird[99], int numBirds);
+//This is my default constructor
 Birds::Birds(){
   for (int index = 0; index < MAX_CHAR_ARRAY_SIZE; index++) {
       name[index] = '\0';
@@ -26,7 +29,7 @@ Birds::Birds(){
       Diet[index] = '\0';
     }
 }
-
+//This is my print birds function it prints out the bird data
 void printBirds(ostream &out, Birds bird){
     out << bird.name << ";";
     out << bird.ScientificName << ";";
@@ -34,21 +37,21 @@ void printBirds(ostream &out, Birds bird){
     out << bird.PrimaryColor << ";";
     out << bird.Diet << endl;
 }
-
+//This function prints the data to screen in an organized fashion.
 void printArrayToScreen(Birds birdArray[99], int birdExamples) {
     for (int index = 0; index < birdExamples; index++) {
         cout << "Index " << index << ": ";
         printBirds(cout, birdArray[index]);
     }
 }
-
+//This function updates the file data
 void printArrayToFile(const char fileName[], Birds birdArray[99], int birdExamples) {
     ofstream outFile(fileName);
     for (int index = 0; index < birdExamples; index++) {
         printBirds(outFile, birdArray[index]);
     }
 }
-
+//This is my display menu, where the user decides which option they would prefer.
 int DisplayMenu(int choice, Birds birds[99], int numBirds ){
  if (choice == 1){
    numBirds = readBirdz(birds);
@@ -80,6 +83,7 @@ int DisplayMenu(int choice, Birds birds[99], int numBirds ){
 
 const int MAX_BIRDS=500;
 
+//This function reads the birds
 Birds readBird(ifstream &inFile){
     Birds bird; 
     inFile.get(bird.name,Birds::MAX_CHAR_ARRAY_SIZE, ';');
@@ -96,6 +100,7 @@ Birds readBird(ifstream &inFile){
     return bird;
 }
 
+//This function allows access to the bird database document
 int readBirdz(Birds bird[99]) {
     ifstream birdFile("birds.txt");
     int numBirds = 0;
@@ -105,7 +110,7 @@ int readBirdz(Birds bird[99]) {
     }
     return numBirds;
 }
-
+//This function allows the user to add birds and their data
 void AddBird(Birds bird[99], int max){
   for (int index = 0; index < max ; index++){
 
@@ -125,13 +130,14 @@ return;
 
 }
 }
-
+//This function allows the user to delete birds 
 void removeBird(Birds bird[99], int Index, int max){
   for (int x = Index; x < max; x++){
     bird[x] = bird[x+1];
   }
 }
 
+//This allows the user to choose the bird color of bird they would like to display.
 void PrintBirdByChoice (Birds bird[99], int numBirds){
 char Input [20];
 cout << "What bird color do you want? ";
@@ -146,7 +152,7 @@ cout << endl;
 }
 }
 
-
+//This is my main and where it asks the user to choose which option they desire.
 int main(){
 
 Birds birdArray[99];
